@@ -1,4 +1,6 @@
 package com.chloetseng.zoo.home
 
-class HomeViewModel {
+import androidx.lifecycle.ViewModel
+
+class HomeViewModel: ViewModel() {
 }
