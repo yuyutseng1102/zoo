@@ -28,6 +28,26 @@ object RemoteDataSource: DataSource {
         }
     }
 
+    override suspend fun getExhibit(type: String, scope: String, id: Int): Result<Exhibit> {
+
+        Log.d("Chloe", "call api")
+
+        if (!isInternetConnected()) {
+            return Result.Fail("Internet not connected")
+        }
+
+        return try {
+            // this will run on a thread managed by Retrofit
+            val listResult = ZooApi.retrofitService.getExhibitList(type = type, scope = scope)
+            val result = listResult.result.results.filter { it.id == id }
+            Result.Success(result[0])
+
+        } catch (e: Exception) {
+            Log.w("Chloe", "[${this::class.simpleName}] exception=${e.message}")
+            Result.Error(e)
+        }
+    }
+
 
     override suspend fun getPlantList(type: String, scope: String): Result<PlantResult> {
         if (!isInternetConnected()) {

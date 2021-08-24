@@ -38,8 +38,6 @@ class ExhibitFragment : Fragment() {
         binding.lifecycleOwner = viewLifecycleOwner
         binding.viewModel = viewModel
         binding.recyclerPlant.adapter = adapter
-        viewModel.setExhibitData()
-        viewModel.setPlantData()
 
         viewModel.navToPlant.observe(viewLifecycleOwner, Observer {
             it?.let {

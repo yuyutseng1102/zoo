@@ -30,6 +30,10 @@ interface ApiService {
     suspend fun getExhibitList(@Path("dataType") type: String, @Query("scope") scope: String, @Query("Content-Type") content: String = "application/json"): ExhibitResult
 
     @GET("dataset/{dataType}")
+    suspend fun getExhibit(@Path("dataType") type: String, @Query("scope") scope: String, @Query("Content-Type") content: String = "application/json"): Exhibit
+
+
+    @GET("dataset/{dataType}")
     suspend fun getPlantList(@Path("dataType") type: String, @Query("scope") scope: String): PlantResult
 }
 

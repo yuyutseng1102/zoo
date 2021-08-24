@@ -5,7 +5,13 @@ import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import com.chloetseng.zoo.data.Exhibit
 import com.chloetseng.zoo.data.Plant
+import com.chloetseng.zoo.data.Result
 import com.chloetseng.zoo.data.source.Repository
+import com.chloetseng.zoo.network.LoadApiStatus
+import kotlinx.coroutines.CoroutineScope
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.Job
+import kotlinx.coroutines.launch
 
 class ExhibitViewModel(private val repository: Repository, private val args: Int) : ViewModel() {
 
@@ -27,34 +33,64 @@ class ExhibitViewModel(private val repository: Repository, private val args: Int
     val navToPlant: LiveData<Int?>
         get() = _navToPlant
 
-    fun navToPlant(plant: Plant){
+    fun navToPlant(plant: Plant) {
         _navToPlant.value = plant.id
     }
-    fun onPlantNav(){
+
+    fun onPlantNav() {
         _navToPlant.value = null
     }
 
-    val mockId: Int = 0
-    val name: String = "可愛動物區"
-    val info: String = "教育中心包括博物館展示區、圖書館、演講廳、動物藝坊及動物學堂等，為本園展示動物園文化的櫥窗。館內以動物標本、生態全景展示傳達動物知識及保育觀念，最特別的是還有亞洲象「林旺」的標本展示區，以及恐龍模型展示喔！"
-    val picture: String = "http://www.zoo.gov.tw/iTAP/05_Exhibit/09_EducationCenter.jpg"
-    val category: String ="戶外區"
-    val geo: String = "MULTIPOINT ((121.5888946 24.9957179))"
-    val url: String = "http://www.zoo.gov.tw/introduce/gq.aspx?tid=19"
-    val number: String = "0"
-    val memo: String = "每週一休館，入館門票：全票20元、優待票10元"
+    private val _status = MutableLiveData<LoadApiStatus>()
+    val status: LiveData<LoadApiStatus>
+        get() = _status
 
-    fun setExhibitData(){
-        _exhibit.value = Exhibit(mockId,name, info, picture, category, geo, url, number, memo)
+
+    private val _error = MutableLiveData<String?>()
+    val error: LiveData<String?>
+        get() = _error
+
+    val TYPE = "5a0e5fbb-72f8-41c6-908e-2fb25eff9b8a"
+    val SCOPE = "resourceAquire"
+
+    private var viewModelJob = Job()
+    private val coroutineScope = CoroutineScope(viewModelJob + Dispatchers.Main)
+
+    override fun onCleared() {
+        super.onCleared()
+        viewModelJob.cancel()
     }
 
-    fun setPlantData(){
-        val mockData: MutableList<Plant> = mutableListOf()
-        mockData.add(Plant(mockId, name, info, picture, category, geo, url, number, memo, memo, memo, memo, memo, memo, memo, memo, memo, memo, memo, memo, memo, picture, memo, memo, memo, memo, memo, memo, memo, memo, memo, memo, memo, memo, memo, memo))
-        mockData.add(Plant(mockId, name, info, picture, category, geo, url, number, memo, memo, memo, memo, memo, memo, memo, memo, memo, memo, memo, memo, memo, picture, memo, memo, memo, memo, memo, memo, memo, memo, memo, memo, memo, memo, memo, memo))
-        mockData.add(Plant(mockId, name, info, picture, category, geo, url, number, memo, memo, memo, memo, memo, memo, memo, memo, memo, memo, memo, memo, memo, picture, memo, memo, memo, memo, memo, memo, memo, memo, memo, memo, memo, memo, memo, memo))
-        mockData.add(Plant(mockId, name, info, picture, category, geo, url, number, memo, memo, memo, memo, memo, memo, memo, memo, memo, memo, memo, memo, memo, picture, memo, memo, memo, memo, memo, memo, memo, memo, memo, memo, memo, memo, memo, memo))
-        _plant.value = mockData
+    init {
+        getExhibit(type = TYPE, scope = SCOPE, id = _id.value ?: 0)
     }
 
+    private fun getExhibit(type: String, scope: String, id: Int) {
+
+        coroutineScope.launch {
+            val result = repository.getExhibit(type, scope, id)
+            _exhibit.value = when (result) {
+                is Result.Success -> {
+                    _error.value = null
+                    _status.value = LoadApiStatus.DONE
+                    result.data
+                }
+                is Result.Fail -> {
+                    _error.value = result.error
+                    _status.value = LoadApiStatus.ERROR
+                    null
+                }
+                is Result.Error -> {
+                    _error.value = result.exception.toString()
+                    _status.value = LoadApiStatus.ERROR
+                    null
+                }
+                else -> {
+                    _error.value = "Error"
+                    _status.value = LoadApiStatus.ERROR
+                    null
+                }
+            }
+        }
+    }
 }
