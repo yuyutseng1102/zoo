@@ -45,7 +45,8 @@
                         app:layout_constraintEnd_toEndOf="parent"
                         app:layout_constraintStart_toStartOf="parent"
                         app:layout_constraintTop_toTopOf="parent"
-                        tools:src="@tools:sample/avatars" />
+                        tools:src="@tools:sample/avatars"
+                        imageUrl="@{viewModel.exhibit.picture}"/>
 
                     <TextView
                         android:id="@+id/exhibit_info"
@@ -53,7 +54,7 @@
                         android:layout_height="wrap_content"
                         android:layout_marginStart="16dp"
                         android:layout_marginEnd="16dp"
-                        android:text="Hello"
+                        android:text="@{viewModel.exhibit.info}"
                         app:layout_constraintEnd_toEndOf="parent"
                         app:layout_constraintStart_toStartOf="parent"
                         app:layout_constraintTop_toBottomOf="@+id/image" />
@@ -64,7 +65,7 @@
                         android:layout_height="wrap_content"
                         android:layout_marginTop="16dp"
                         android:layout_marginEnd="16dp"
-                        android:text="TextView"
+                        android:text="@{viewModel.exhibit.memo}"
                         android:textSize="12sp"
                         app:layout_constraintEnd_toEndOf="parent"
                         app:layout_constraintHorizontal_bias="0.0"
@@ -78,7 +79,7 @@
                         android:layout_marginTop="8dp"
                         android:layout_marginEnd="16dp"
                         android:layout_marginBottom="16dp"
-                        android:text="TextView"
+                        android:text="@{viewModel.exhibit.category}"
                         android:textSize="12sp"
                         app:layout_constraintBottom_toBottomOf="parent"
                         app:layout_constraintEnd_toStartOf="@+id/exhibit_url"
@@ -92,7 +93,7 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_marginEnd="16dp"
-                        android:text="TextView"
+                        android:text="@{viewModel.exhibit.url}"
                         android:textSize="12sp"
                         app:layout_constraintEnd_toEndOf="parent"
                         app:layout_constraintTop_toTopOf="@+id/exhibit_category" />

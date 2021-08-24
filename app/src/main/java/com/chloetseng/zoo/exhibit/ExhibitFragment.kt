@@ -31,7 +31,8 @@ class ExhibitFragment : Fragment() {
         binding.lifecycleOwner = viewLifecycleOwner
         binding.viewModel = viewModel
         binding.recyclerPlant.adapter = adapter
-//        viewModel.setData()
+        viewModel.setExhibitData()
+        viewModel.setPlantData()
 
         return binding.root
     }
