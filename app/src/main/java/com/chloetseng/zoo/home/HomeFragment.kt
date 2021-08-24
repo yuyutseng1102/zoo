@@ -22,12 +22,12 @@ class HomeFragment : Fragment() {
         val viewModelFactory = ViewModelFactory()
 
         val viewModel = ViewModelProvider(this, viewModelFactory).get(HomeViewModel::class.java)
-
+        val adapter = HomeAdapter()
         val binding = FragmentHomeBinding.inflate(inflater, container, false)
         binding.lifecycleOwner = viewLifecycleOwner
-
         binding.viewModel = viewModel
-
+        binding.recyclerHome.adapter = adapter
+        viewModel.setData()
 
         return binding.root
 
