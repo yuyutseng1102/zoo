@@ -10,4 +10,17 @@
         android:name="com.chloetseng.zoo.home.HomeFragment"
         android:label="fragment_home"
         tools:layout="@layout/fragment_home" />
+    <fragment
+        android:id="@+id/exhibitFragment"
+        android:name="com.chloetseng.zoo.exhibit.ExhibitFragment"
+        android:label="ExhibitFragment">
+        <argument
+            android:name="exhibitKey"
+            app:argType="com.chloe.zoo.data.Exhibit"
+            app:nullable="false" />
+    </fragment>
+
+    <action
+        android:id="@+id/navigate_to_exhibit_fragment"
+        app:destination="@id/exhibitFragment" />
 </navigation>

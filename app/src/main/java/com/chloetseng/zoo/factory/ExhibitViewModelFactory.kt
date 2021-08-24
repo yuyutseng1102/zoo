@@ -2,14 +2,14 @@ package com.chloetseng.zoo.factory
 
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.ViewModelProvider
-import com.chloetseng.zoo.home.HomeViewModel
+import com.chloetseng.zoo.exhibit.ExhibitViewModel
 
 @Suppress("UNCHECKED_CAST")
-class ViewModelFactory constructor(): ViewModelProvider.NewInstanceFactory() {
+class ExhibitViewModelFactory(private val exhibitKey: String): ViewModelProvider.NewInstanceFactory() {
     override fun <T : ViewModel> create(modelClass: Class<T>) =
         with(modelClass) {
             when {
-                isAssignableFrom(HomeViewModel::class.java) -> HomeViewModel()
+                isAssignableFrom(ExhibitViewModel::class.java) -> ExhibitViewModel(exhibitKey)
                 else -> throw IllegalArgumentException("Unknown ViewModel class: ${modelClass.name}")
             }
         } as T

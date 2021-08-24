@@ -8,12 +8,13 @@ import androidx.recyclerview.widget.RecyclerView
 import com.chloetseng.zoo.data.Exhibit
 import com.chloetseng.zoo.databinding.ItemHomeExhibitBinding
 
-class HomeAdapter: ListAdapter<Exhibit, HomeAdapter.ViewHolder>(DiffCallback) {
+class HomeAdapter(val viewModel: HomeViewModel): ListAdapter<Exhibit, HomeAdapter.ViewHolder>(DiffCallback) {
 
-    class ViewHolder(private var binding: ItemHomeExhibitBinding):
+    class ViewHolder(private var binding: ItemHomeExhibitBinding,private val viewModel: HomeViewModel):
         RecyclerView.ViewHolder(binding.root) {
         fun bind(exhibit: Exhibit) {
             binding.item = exhibit
+            binding.viewModel = viewModel
             binding.executePendingBindings()
         }
     }
@@ -30,7 +31,7 @@ class HomeAdapter: ListAdapter<Exhibit, HomeAdapter.ViewHolder>(DiffCallback) {
 
     override fun onCreateViewHolder(parent: ViewGroup,
                                     viewType: Int): ViewHolder {
-        return ViewHolder(ItemHomeExhibitBinding.inflate(LayoutInflater.from(parent.context), parent, false))
+        return ViewHolder(ItemHomeExhibitBinding.inflate(LayoutInflater.from(parent.context), parent, false),viewModel)
     }
 
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {

@@ -4,13 +4,24 @@ import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import com.chloetseng.zoo.data.Exhibit
-import com.squareup.moshi.Json
 
 class HomeViewModel: ViewModel() {
 
     private val _exhibit = MutableLiveData<List<Exhibit>>()
     val exhibit: LiveData<List<Exhibit>>
     get() = _exhibit
+
+    private val _navToExhibit = MutableLiveData<Int?>()
+    val navToExhibit: LiveData<Int?>
+        get() = _navToExhibit
+
+    fun navToExhibit(exhibit: Exhibit){
+        _navToExhibit.value = exhibit.id
+    }
+
+    fun onExhibitNav(){
+        _navToExhibit.value = null
+    }
 
     val id: Int = 0
     val name: String = "可愛動物區"
