@@ -6,12 +6,12 @@ import androidx.lifecycle.ViewModel
 import com.chloetseng.zoo.data.Exhibit
 import com.chloetseng.zoo.data.Plant
 
-class ExhibitViewModel(private val args: String) : ViewModel() {
+class ExhibitViewModel(private val args: Int) : ViewModel() {
 
-    private val _id = MutableLiveData<String>().apply {
+    private val _id = MutableLiveData<Int>().apply {
         value = args
     }
-    val id: LiveData<String>
+    val id: LiveData<Int>
         get() = _id
 
     private val _exhibit = MutableLiveData<Exhibit>()

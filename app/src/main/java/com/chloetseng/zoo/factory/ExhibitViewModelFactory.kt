@@ -5,7 +5,7 @@ import androidx.lifecycle.ViewModelProvider
 import com.chloetseng.zoo.exhibit.ExhibitViewModel
 
 @Suppress("UNCHECKED_CAST")
-class ExhibitViewModelFactory(private val exhibitKey: String): ViewModelProvider.NewInstanceFactory() {
+class ExhibitViewModelFactory(private val exhibitKey: Int): ViewModelProvider.NewInstanceFactory() {
     override fun <T : ViewModel> create(modelClass: Class<T>) =
         with(modelClass) {
             when {

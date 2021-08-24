@@ -1,6 +1,7 @@
 package com.chloetseng.zoo.home
 
 import android.os.Bundle
+import android.util.Log
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
@@ -20,10 +21,7 @@ class HomeFragment : Fragment() {
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        // Inflate the layout for this fragment
-
         val viewModelFactory = ViewModelFactory()
-
         val viewModel = ViewModelProvider(this, viewModelFactory).get(HomeViewModel::class.java)
         val adapter = HomeAdapter(viewModel)
         val binding = FragmentHomeBinding.inflate(inflater, container, false)
@@ -35,6 +33,7 @@ class HomeFragment : Fragment() {
         viewModel.navToExhibit.observe(viewLifecycleOwner, Observer {
             it?.let {
                 findNavController().navigate(NavigationDirections.navigateToExhibitFragment(it))
+                Log.d("Chloe","navToExhibit = $it")
                 viewModel.onExhibitNav()
             }
         })

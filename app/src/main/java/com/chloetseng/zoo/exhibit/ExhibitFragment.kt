@@ -6,6 +6,8 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.fragment.app.viewModels
+import androidx.navigation.fragment.navArgs
 import com.chloetseng.zoo.R
 import com.chloetseng.zoo.databinding.FragmentExhibitBinding
 import com.chloetseng.zoo.databinding.FragmentHomeBinding
@@ -20,8 +22,10 @@ class ExhibitFragment : Fragment() {
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        val viewModelFactory = ExhibitViewModelFactory(ExhibitFragmentArgs.fromBundle(requireArguments()).exhibitKey)
+        val args by navArgs<ExhibitFragmentArgs>()
+        val viewModelFactory = ExhibitViewModelFactory(args.exhibitKey)
         val viewModel = ViewModelProvider(this, viewModelFactory).get(ExhibitViewModel::class.java)
+
         val adapter = ExhibitAdapter(viewModel)
         val binding = FragmentExhibitBinding.inflate(inflater, container, false)
         binding.lifecycleOwner = viewLifecycleOwner

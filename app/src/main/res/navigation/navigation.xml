@@ -16,8 +16,7 @@
         android:label="ExhibitFragment">
         <argument
             android:name="exhibitKey"
-            app:argType="com.chloe.zoo.data.Exhibit"
-            app:nullable="false" />
+            app:argType="integer" />
     </fragment>
 
     <action
