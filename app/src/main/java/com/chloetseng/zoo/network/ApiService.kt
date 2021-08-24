@@ -1,7 +1,9 @@
 package com.chloetseng.zoo.network
 
 import com.chloetseng.zoo.data.Exhibit
+import com.chloetseng.zoo.data.ExhibitResult
 import com.chloetseng.zoo.data.Plant
+import com.chloetseng.zoo.data.PlantResult
 import com.squareup.moshi.Moshi
 import com.squareup.moshi.kotlin.reflect.KotlinJsonAdapterFactory
 import retrofit2.Retrofit
@@ -25,10 +27,10 @@ private val retrofit = Retrofit.Builder()
 
 interface ApiService {
     @GET("dataset/{dataType}")
-    suspend fun getExhibitList(@Path("dataType") type: String, @Query("scope") scope: String, @Query("Content-Type") content: String = "application/json"): List<Exhibit>
+    suspend fun getExhibitList(@Path("dataType") type: String, @Query("scope") scope: String, @Query("Content-Type") content: String = "application/json"): ExhibitResult
 
     @GET("dataset/{dataType}")
-    suspend fun getPlantList(@Path("dataType") type: String, @Query("scope") scope: String): List<Plant>
+    suspend fun getPlantList(@Path("dataType") type: String, @Query("scope") scope: String): PlantResult
 }
 
 object ZooApi {

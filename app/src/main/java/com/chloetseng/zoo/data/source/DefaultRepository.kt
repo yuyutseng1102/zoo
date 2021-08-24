@@ -1,17 +1,15 @@
 package com.chloetseng.zoo.data.source
 
-import com.chloetseng.zoo.data.Exhibit
-import com.chloetseng.zoo.data.Plant
-import com.chloetseng.zoo.data.Result
+import com.chloetseng.zoo.data.*
 
 class DefaultRepository(private val remoteDataSource: DataSource,
                         private val localDataSource: DataSource,): Repository {
 
-    override suspend fun getExhibitList(type: String, scope: String): Result<List<Exhibit>> {
+    override suspend fun getExhibitList(type: String, scope: String): Result<ExhibitResult> {
         return remoteDataSource.getExhibitList(type, scope)
     }
 
-    override suspend fun getPlantList(type: String, scope: String): Result<List<Plant>> {
+    override suspend fun getPlantList(type: String, scope: String): Result<PlantResult> {
         return localDataSource.getPlantList(type, scope)
     }
 

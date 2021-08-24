@@ -30,7 +30,7 @@ class HomeFragment : Fragment() {
         binding.lifecycleOwner = viewLifecycleOwner
         binding.viewModel = viewModel
         binding.recyclerHome.adapter = adapter
-        viewModel.setData()
+//        viewModel.setData()
 
         viewModel.navToExhibit.observe(viewLifecycleOwner, Observer {
             it?.let {
