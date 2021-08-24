@@ -6,27 +6,26 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import com.chloetseng.zoo.R
+import androidx.navigation.fragment.navArgs
+import com.chloetseng.zoo.ZooApplication
+import com.chloetseng.zoo.databinding.FragmentPlantBinding
+import com.chloetseng.zoo.factory.ExhibitViewModelFactory
 
 class PlantFragment : Fragment() {
-
-    companion object {
-        fun newInstance() = PlantFragment()
-    }
-
-    private lateinit var viewModel: PlantViewModel
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        return inflater.inflate(R.layout.fragment_plant, container, false)
-    }
+        val args by navArgs<PlantFragmentArgs>()
+        val repository = (requireContext().applicationContext as ZooApplication).repository
+        val viewModelFactory = ExhibitViewModelFactory(repository, args.plantKey)
+        val viewModel = ViewModelProvider(this, viewModelFactory).get(PlantViewModel::class.java)
 
-    override fun onActivityCreated(savedInstanceState: Bundle?) {
-        super.onActivityCreated(savedInstanceState)
-        viewModel = ViewModelProvider(this).get(PlantViewModel::class.java)
-        // TODO: Use the ViewModel
+        val binding = FragmentPlantBinding.inflate(inflater, container, false)
+        binding.lifecycleOwner = viewLifecycleOwner
+        binding.viewModel = viewModel
+        return binding.root
     }
 
 }

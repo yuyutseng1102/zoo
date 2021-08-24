@@ -11,6 +11,7 @@ import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.Navigation.findNavController
 import androidx.navigation.fragment.findNavController
 import com.chloetseng.zoo.NavigationDirections
+import com.chloetseng.zoo.ZooApplication
 import com.chloetseng.zoo.databinding.FragmentHomeBinding
 import com.chloetseng.zoo.factory.ViewModelFactory
 
@@ -21,7 +22,8 @@ class HomeFragment : Fragment() {
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        val viewModelFactory = ViewModelFactory()
+        val repository = (requireContext().applicationContext as ZooApplication).repository
+        val viewModelFactory = ViewModelFactory(repository)
         val viewModel = ViewModelProvider(this, viewModelFactory).get(HomeViewModel::class.java)
         val adapter = HomeAdapter(viewModel)
         val binding = FragmentHomeBinding.inflate(inflater, container, false)

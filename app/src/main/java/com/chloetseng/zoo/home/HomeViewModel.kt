@@ -4,8 +4,9 @@ import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import com.chloetseng.zoo.data.Exhibit
+import com.chloetseng.zoo.data.source.Repository
 
-class HomeViewModel: ViewModel() {
+class HomeViewModel(private val repository: Repository) : ViewModel() {
 
     private val _exhibit = MutableLiveData<List<Exhibit>>()
     val exhibit: LiveData<List<Exhibit>>

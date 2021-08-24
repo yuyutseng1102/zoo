@@ -19,7 +19,20 @@
             app:argType="integer" />
     </fragment>
 
+    <fragment
+        android:id="@+id/plantFragment"
+        android:name="com.chloetseng.zoo.plant.PlantFragment"
+        android:label="PlantFragment">
+        <argument
+            android:name="plantKey"
+            app:argType="integer" />
+    </fragment>
+
     <action
         android:id="@+id/navigate_to_exhibit_fragment"
         app:destination="@id/exhibitFragment" />
+    <action
+        android:id="@+id/navigate_to_plant_fragment"
+        app:destination="@id/plantFragment" />
+
 </navigation>
