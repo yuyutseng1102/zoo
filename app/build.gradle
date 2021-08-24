@@ -20,8 +20,12 @@ android {
 
     buildTypes {
         release {
+            buildConfigField("Boolean", "LOGGER_VISIABLE", "false")
             minifyEnabled false
             proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
+        }
+        debug {
+            buildConfigField("Boolean", "LOGGER_VISIABLE", "true")
         }
     }
     compileOptions {
@@ -66,5 +70,8 @@ dependencies {
     // Glide
     implementation "com.github.bumptech.glide:glide:$version_glide"
     kapt "com.github.bumptech.glide:compiler:$version_glide"
+
+    // Retrofit Logging Interceptor
+    implementation("com.squareup.okhttp3:logging-interceptor:4.9.0")
 
 }
