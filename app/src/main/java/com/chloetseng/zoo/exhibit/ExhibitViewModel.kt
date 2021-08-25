@@ -21,8 +21,8 @@ class ExhibitViewModel(private val repository: Repository, private val args: Int
     val id: LiveData<Int>
         get() = _id
 
-    private val _exhibit = MutableLiveData<Exhibit>()
-    val exhibit: LiveData<Exhibit>
+    private val _exhibit = MutableLiveData<Exhibit?>()
+    val exhibit: LiveData<Exhibit?>
         get() = _exhibit
 
     private val _plant = MutableLiveData<List<Plant>>()
@@ -50,7 +50,12 @@ class ExhibitViewModel(private val repository: Repository, private val args: Int
     val error: LiveData<String?>
         get() = _error
 
-    val TYPE = "5a0e5fbb-72f8-41c6-908e-2fb25eff9b8a"
+    private val _getExhibitDone = MutableLiveData<Boolean?>()
+    val getExhibitDone: LiveData<Boolean?>
+        get() = _getExhibitDone
+
+    val EXHIBIT_TYPE = "5a0e5fbb-72f8-41c6-908e-2fb25eff9b8a"
+    val PLANT_TYPE = "f18de02f-b6c9-47c0-8cda-50efad621c14"
     val SCOPE = "resourceAquire"
 
     private var viewModelJob = Job()
@@ -62,14 +67,48 @@ class ExhibitViewModel(private val repository: Repository, private val args: Int
     }
 
     init {
-        getExhibit(type = TYPE, scope = SCOPE, id = _id.value ?: 0)
+        getExhibit(type = EXHIBIT_TYPE, scope = SCOPE, id = _id.value ?: 0)
     }
 
     private fun getExhibit(type: String, scope: String, id: Int) {
 
         coroutineScope.launch {
             val result = repository.getExhibit(type, scope, id)
-            _exhibit.value = when (result) {
+            when (result) {
+                is Result.Success -> {
+                    _error.value = null
+                    _status.value = LoadApiStatus.DONE
+                    _exhibit.value = result.data
+                    _getExhibitDone.value = true
+                }
+                is Result.Fail -> {
+                    _error.value = result.error
+                    _status.value = LoadApiStatus.ERROR
+                    _exhibit.value = null
+                }
+                is Result.Error -> {
+                    _error.value = result.exception.toString()
+                    _status.value = LoadApiStatus.ERROR
+                    _exhibit.value = null
+                }
+                else -> {
+                    _error.value = "Error"
+                    _status.value = LoadApiStatus.ERROR
+                    _exhibit.value = null
+                }
+            }
+        }
+    }
+
+    fun onExhibitGot(){
+        _getExhibitDone.value = null
+    }
+
+    fun getPlantList(type: String, scope: String, exhibit: String) {
+
+        coroutineScope.launch {
+            val result = repository.getPlantList(type, scope, exhibit)
+            _plant.value = when (result) {
                 is Result.Success -> {
                     _error.value = null
                     _status.value = LoadApiStatus.DONE

@@ -5,5 +5,6 @@ import com.chloetseng.zoo.data.*
 interface DataSource {
     suspend fun getExhibitList(type:String, scope: String): Result<ExhibitResult>
     suspend fun getExhibit(type:String, scope: String, id: Int): Result<Exhibit>
-    suspend fun getPlantList(type:String, scope: String): Result<PlantResult>
+    suspend fun getPlantList(type:String, scope: String, exhibit: String): Result<List<Plant>>
+    suspend fun getPlant(type:String, scope: String, id: Int): Result<Plant>
 }

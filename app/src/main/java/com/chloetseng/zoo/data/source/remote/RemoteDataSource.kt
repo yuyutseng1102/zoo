@@ -48,8 +48,11 @@ object RemoteDataSource: DataSource {
         }
     }
 
-
-    override suspend fun getPlantList(type: String, scope: String): Result<PlantResult> {
+    override suspend fun getPlantList(
+        type: String,
+        scope: String,
+        exhibit: String
+    ): Result<List<Plant>> {
         if (!isInternetConnected()) {
             return Result.Fail("Internet not connected")
         }
@@ -57,11 +60,32 @@ object RemoteDataSource: DataSource {
         return try {
             // this will run on a thread managed by Retrofit
             val listResult = ZooApi.retrofitService.getPlantList(type = type, scope = scope)
-            Result.Success(listResult)
+            val list = listResult.result.results.filter { it.location.contains(exhibit) }
+            Log.d("Chloe", "plant list got = $list")
+            Result.Success(list)
 
         } catch (e: Exception) {
             Log.w("Chloe", "[${this::class.simpleName}] exception=${e.message}")
             Result.Error(e)
         }
     }
+
+    override suspend fun getPlant(type: String, scope: String, id: Int): Result<Plant> {
+
+        if (!isInternetConnected()) {
+            return Result.Fail("Internet not connected")
+        }
+
+        return try {
+            // this will run on a thread managed by Retrofit
+            val listResult = ZooApi.retrofitService.getPlantList(type = type, scope = scope)
+            val result = listResult.result.results.filter { it.id == id }
+            Result.Success(result[0])
+
+        } catch (e: Exception) {
+            Log.w("Chloe", "[${this::class.simpleName}] exception=${e.message}")
+            Result.Error(e)
+        }
+    }
+
 }

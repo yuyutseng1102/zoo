@@ -13,7 +13,16 @@ class LocalDataSource(context: Context) : DataSource {
         TODO("Not yet implemented")
     }
 
-    override suspend fun getPlantList(type: String, scope: String): Result<PlantResult> {
+    override suspend fun getPlantList(
+        type: String,
+        scope: String,
+        exhibit: String
+    ): Result<List<Plant>> {
         TODO("Not yet implemented")
     }
+
+    override suspend fun getPlant(type: String, scope: String, id: Int): Result<Plant> {
+        TODO("Not yet implemented")
+    }
+
 }

@@ -28,8 +28,9 @@
                 <ImageView
                     android:id="@+id/plant_image"
                     android:layout_width="0dp"
-                    android:layout_height="wrap_content"
+                    android:layout_height="200dp"
                     android:scaleType="centerCrop"
+                    app:imageUrl="@{viewModel.plant.pic01Url}"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toTopOf="parent"
@@ -54,17 +55,17 @@
                         android:id="@+id/plant_name_ch"
                         android:layout_width="0dp"
                         android:layout_height="wrap_content"
-                        android:text="Hello"
+                        android:text="@{viewModel.plant.nameCh}"
                         android:textSize="16sp"
                         app:layout_constraintEnd_toEndOf="parent"
                         app:layout_constraintStart_toStartOf="parent"
-                        app:layout_constraintTop_toTopOf="parent" />
+                        app:layout_constraintTop_toTopOf="parent"/>
 
                     <TextView
                         android:id="@+id/plant_name_en"
                         android:layout_width="0dp"
                         android:layout_height="wrap_content"
-                        android:text="TextView"
+                        android:text="@{viewModel.plant.nameEn}"
                         android:textSize="16sp"
                         app:layout_constraintEnd_toEndOf="parent"
                         app:layout_constraintStart_toStartOf="parent"
@@ -75,7 +76,7 @@
                         android:layout_width="0dp"
                         android:layout_height="wrap_content"
                         android:layout_marginTop="24dp"
-                        android:text="TextView"
+                        android:text="別名"
                         app:layout_constraintEnd_toEndOf="parent"
                         app:layout_constraintHorizontal_bias="0.0"
                         app:layout_constraintStart_toStartOf="parent"
@@ -85,47 +86,47 @@
                         android:id="@+id/plant_alsoKnown"
                         android:layout_width="0dp"
                         android:layout_height="wrap_content"
-                        android:text="TextView"
+                        android:text="@{viewModel.plant.alsoKnown}"
                         app:layout_constraintEnd_toEndOf="parent"
                         app:layout_constraintStart_toStartOf="parent"
                         app:layout_constraintTop_toBottomOf="@+id/header_alsoKnown" />
 
                     <TextView
-                        android:id="@+id/header_info"
+                        android:id="@+id/header_brief"
                         android:layout_width="0dp"
                         android:layout_height="wrap_content"
                         android:layout_marginTop="24dp"
-                        android:text="TextView"
+                        android:text="簡介"
                         app:layout_constraintEnd_toEndOf="parent"
                         app:layout_constraintHorizontal_bias="0.0"
                         app:layout_constraintStart_toStartOf="parent"
                         app:layout_constraintTop_toBottomOf="@+id/plant_alsoKnown" />
 
                     <TextView
-                        android:id="@+id/plant_info"
+                        android:id="@+id/plant_brief"
                         android:layout_width="0dp"
                         android:layout_height="wrap_content"
-                        android:text="TextView"
+                        android:text="@{viewModel.plant.brief}"
                         app:layout_constraintEnd_toEndOf="parent"
                         app:layout_constraintStart_toStartOf="parent"
-                        app:layout_constraintTop_toBottomOf="@+id/header_info" />
+                        app:layout_constraintTop_toBottomOf="@+id/header_brief" />
 
                     <TextView
                         android:id="@+id/header_feature"
                         android:layout_width="0dp"
                         android:layout_height="wrap_content"
                         android:layout_marginTop="24dp"
-                        android:text="TextView"
+                        android:text="辨認方式"
                         app:layout_constraintEnd_toEndOf="parent"
                         app:layout_constraintHorizontal_bias="0.0"
                         app:layout_constraintStart_toStartOf="parent"
-                        app:layout_constraintTop_toBottomOf="@+id/plant_info" />
+                        app:layout_constraintTop_toBottomOf="@+id/plant_brief" />
 
                     <TextView
                         android:id="@+id/plant_feature"
                         android:layout_width="0dp"
                         android:layout_height="wrap_content"
-                        android:text="TextView"
+                        android:text="@{viewModel.plant.feature}"
                         app:layout_constraintEnd_toEndOf="parent"
                         app:layout_constraintStart_toStartOf="parent"
                         app:layout_constraintTop_toBottomOf="@+id/header_feature" />
@@ -135,7 +136,7 @@
                         android:layout_width="0dp"
                         android:layout_height="wrap_content"
                         android:layout_marginTop="24dp"
-                        android:text="TextView"
+                        android:text="功能性"
                         app:layout_constraintEnd_toEndOf="parent"
                         app:layout_constraintHorizontal_bias="0.0"
                         app:layout_constraintStart_toStartOf="parent"
@@ -145,7 +146,7 @@
                         android:id="@+id/plant_function"
                         android:layout_width="0dp"
                         android:layout_height="wrap_content"
-                        android:text="TextView"
+                        android:text="@{viewModel.plant.function}"
                         app:layout_constraintEnd_toEndOf="parent"
                         app:layout_constraintStart_toStartOf="parent"
                         app:layout_constraintTop_toBottomOf="@+id/header_function" />
@@ -156,7 +157,7 @@
                         android:layout_height="wrap_content"
                         android:layout_marginTop="24dp"
                         android:layout_marginBottom="24dp"
-                        android:text="最後更新："
+                        android:text= '@{"最後更新："+viewModel.plant.update}'
                         app:layout_constraintBottom_toBottomOf="parent"
                         app:layout_constraintEnd_toEndOf="parent"
                         app:layout_constraintHorizontal_bias="0.0"

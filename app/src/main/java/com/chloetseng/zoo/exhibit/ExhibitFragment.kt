@@ -48,6 +48,18 @@ class ExhibitFragment : Fragment() {
         })
 
 
+        viewModel.apply {
+            getExhibitDone.observe(viewLifecycleOwner, Observer {
+                it?.let {
+                    exhibit.value?.let { exhibit ->
+                        Log.d("Chloe", "exhibit got = $exhibit.name")
+                        getPlantList(PLANT_TYPE, SCOPE, exhibit.name)
+                        onExhibitGot()
+                    }
+                }
+            })
+        }
+
         return binding.root
     }
 

@@ -8,7 +8,7 @@ import kotlinx.android.parcel.Parcelize
 data class Plant(
     @Json(name = "_id") val id: Int,
     @Json(name = "F_Name_En") val nameEn: String,
-    @Json(name = "F_Name_Ch") val nameCh: String,
+    @Json(name = "F_Name_Ch") val nameCh: String = "",
     @Json(name = "F_Name_Latin") val nameLatin: String,
     @Json(name = "F_Location") val location: String,
     @Json(name = "F_Summary") val summary: String,
