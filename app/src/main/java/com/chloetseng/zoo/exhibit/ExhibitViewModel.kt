@@ -3,10 +3,14 @@ package com.chloetseng.zoo.exhibit
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
+import com.chloetseng.zoo.DataType
+import com.chloetseng.zoo.R
+import com.chloetseng.zoo.SCOPE
 import com.chloetseng.zoo.data.Exhibit
 import com.chloetseng.zoo.data.Plant
 import com.chloetseng.zoo.data.Result
 import com.chloetseng.zoo.data.source.Repository
+import com.chloetseng.zoo.getString
 import com.chloetseng.zoo.network.LoadApiStatus
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
@@ -54,10 +58,6 @@ class ExhibitViewModel(private val repository: Repository, private val args: Int
     val getExhibitDone: LiveData<Boolean?>
         get() = _getExhibitDone
 
-    val EXHIBIT_TYPE = "5a0e5fbb-72f8-41c6-908e-2fb25eff9b8a"
-    val PLANT_TYPE = "f18de02f-b6c9-47c0-8cda-50efad621c14"
-    val SCOPE = "resourceAquire"
-
     private var viewModelJob = Job()
     private val coroutineScope = CoroutineScope(viewModelJob + Dispatchers.Main)
 
@@ -67,7 +67,7 @@ class ExhibitViewModel(private val repository: Repository, private val args: Int
     }
 
     init {
-        getExhibit(type = EXHIBIT_TYPE, scope = SCOPE, id = _id.value ?: 0)
+        getExhibit(type = DataType.EXHIBIT_TYPE.value, scope = SCOPE, id = _id.value ?: 0)
     }
 
     private fun getExhibit(type: String, scope: String, id: Int) {
@@ -92,7 +92,7 @@ class ExhibitViewModel(private val repository: Repository, private val args: Int
                     _exhibit.value = null
                 }
                 else -> {
-                    _error.value = "Error"
+                    _error.value = getString(R.string.error)
                     _status.value = LoadApiStatus.ERROR
                     _exhibit.value = null
                 }
@@ -125,7 +125,7 @@ class ExhibitViewModel(private val repository: Repository, private val args: Int
                     null
                 }
                 else -> {
-                    _error.value = "Error"
+                    _error.value = getString(R.string.error)
                     _status.value = LoadApiStatus.ERROR
                     null
                 }

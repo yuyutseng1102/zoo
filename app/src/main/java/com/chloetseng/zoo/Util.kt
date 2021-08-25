@@ -10,3 +10,9 @@ fun isInternetConnected(): Boolean {
     val activeNetwork: NetworkInfo? = cm.activeNetworkInfo
     return activeNetwork?.isConnectedOrConnecting == true
 }
+
+fun getString(resourceId: Int): String {
+    return ZooApplication.instance.getString(resourceId)
+}
+
+val SCOPE = "resourceAquire"

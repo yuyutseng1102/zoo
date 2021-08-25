@@ -13,10 +13,8 @@ import androidx.fragment.app.viewModels
 import androidx.lifecycle.Observer
 import androidx.navigation.fragment.findNavController
 import androidx.navigation.fragment.navArgs
-import com.chloetseng.zoo.NavigationDirections
-import com.chloetseng.zoo.R
+import com.chloetseng.zoo.*
 import com.chloetseng.zoo.ServiceLocator.repository
-import com.chloetseng.zoo.ZooApplication
 import com.chloetseng.zoo.databinding.FragmentExhibitBinding
 import com.chloetseng.zoo.databinding.FragmentHomeBinding
 import com.chloetseng.zoo.factory.ExhibitViewModelFactory
@@ -44,7 +42,6 @@ class ExhibitFragment : Fragment() {
         viewModel.navToPlant.observe(viewLifecycleOwner, Observer {
             it?.let {
                 findNavController().navigate(NavigationDirections.navigateToPlantFragment(it))
-                Log.d("Chloe","navToExhibit = $it")
                 viewModel.onPlantNav()
             }
         })
@@ -54,8 +51,7 @@ class ExhibitFragment : Fragment() {
             getExhibitDone.observe(viewLifecycleOwner, Observer {
                 it?.let {
                     exhibit.value?.let { exhibit ->
-                        Log.d("Chloe", "exhibit got = $exhibit.name")
-                        getPlantList(PLANT_TYPE, SCOPE, exhibit.name)
+                        getPlantList(DataType.PLANT_TYPE.value, SCOPE, exhibit.name)
                         onExhibitGot()
                     }
                 }
@@ -70,6 +66,11 @@ class ExhibitFragment : Fragment() {
                 }
                 startActivity(intent)
         }
+
+        binding.toolbar.setNavigationOnClickListener {
+            findNavController().popBackStack()
+        }
+
         return binding.root
     }
 

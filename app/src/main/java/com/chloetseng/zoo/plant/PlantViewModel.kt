@@ -3,9 +3,13 @@ package com.chloetseng.zoo.plant
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
+import com.chloetseng.zoo.DataType
+import com.chloetseng.zoo.R
+import com.chloetseng.zoo.SCOPE
 import com.chloetseng.zoo.data.Plant
 import com.chloetseng.zoo.data.Result
 import com.chloetseng.zoo.data.source.Repository
+import com.chloetseng.zoo.getString
 import com.chloetseng.zoo.network.LoadApiStatus
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
@@ -32,9 +36,6 @@ class PlantViewModel(private val repository: Repository, private val args: Int) 
     val error: LiveData<String?>
         get() = _error
 
-    val PLANT_TYPE = "f18de02f-b6c9-47c0-8cda-50efad621c14"
-    val SCOPE = "resourceAquire"
-
     private var viewModelJob = Job()
     private val coroutineScope = CoroutineScope(viewModelJob + Dispatchers.Main)
 
@@ -44,7 +45,7 @@ class PlantViewModel(private val repository: Repository, private val args: Int) 
     }
 
     init {
-        getExhibit(type = PLANT_TYPE, scope = SCOPE, id = _id.value ?: 0)
+        getExhibit(type = DataType.PLANT_TYPE.value, scope = SCOPE, id = _id.value ?: 0)
     }
 
     private fun getExhibit(type: String, scope: String, id: Int) {
@@ -67,7 +68,7 @@ class PlantViewModel(private val repository: Repository, private val args: Int) 
                     null
                 }
                 else -> {
-                    _error.value = "Error"
+                    _error.value = getString(R.string.error)
                     _status.value = LoadApiStatus.ERROR
                     null
                 }

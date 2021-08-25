@@ -30,12 +30,10 @@ class HomeFragment : Fragment() {
         binding.lifecycleOwner = viewLifecycleOwner
         binding.viewModel = viewModel
         binding.recyclerHome.adapter = adapter
-//        viewModel.setData()
 
         viewModel.navToExhibit.observe(viewLifecycleOwner, Observer {
             it?.let {
                 findNavController().navigate(NavigationDirections.navigateToExhibitFragment(it))
-                Log.d("Chloe","navToExhibit = $it")
                 viewModel.onExhibitNav()
             }
         })
