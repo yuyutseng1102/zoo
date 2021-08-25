@@ -1,5 +1,7 @@
 package com.chloetseng.zoo.exhibit
 
+import android.content.Intent
+import android.net.Uri
 import androidx.lifecycle.ViewModelProvider
 import android.os.Bundle
 import android.util.Log
@@ -60,6 +62,14 @@ class ExhibitFragment : Fragment() {
             })
         }
 
+        binding.exhibitUrl.setOnClickListener {
+                val intent = Intent(Intent.ACTION_VIEW)
+                intent.addCategory(Intent.CATEGORY_BROWSABLE)
+                viewModel.exhibit.value?.let {
+                    intent.setData(Uri.parse(it.url))
+                }
+                startActivity(intent)
+        }
         return binding.root
     }
 

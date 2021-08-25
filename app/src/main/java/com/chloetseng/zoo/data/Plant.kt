@@ -1,14 +1,19 @@
 package com.chloetseng.zoo.data
 
 import android.os.Parcelable
+import android.text.TextUtils.replace
+import android.util.Log
+import com.google.android.play.core.internal.l
 import com.squareup.moshi.Json
 import kotlinx.android.parcel.Parcelize
+import java.lang.System.out
+import java.net.URLDecoder
 
 @Parcelize
 data class Plant(
     @Json(name = "_id") val id: Int,
     @Json(name = "F_Name_En") val nameEn: String,
-    @Json(name = "F_Name_Ch") val nameCh: String = "",
+    @Json(name = "\uFEFFF_Name_Ch") val nameCh: String,
     @Json(name = "F_Name_Latin") val nameLatin: String,
     @Json(name = "F_Location") val location: String,
     @Json(name = "F_Summary") val summary: String,

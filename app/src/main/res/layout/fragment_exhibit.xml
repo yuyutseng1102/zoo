@@ -94,7 +94,8 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_marginEnd="16dp"
-                        android:text="@{viewModel.exhibit.url}"
+                        android:text="在網頁開啟"
+                        android:textColor="#A8C1E0"
                         android:textSize="12sp"
                         app:layout_constraintEnd_toEndOf="parent"
                         app:layout_constraintTop_toTopOf="@+id/exhibit_category" />
